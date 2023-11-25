@@ -120,7 +120,6 @@ fun SendMessageButton(
 
         } else {
             try {
-
                 SmsManager.getDefault()
                     .sendTextMessage(number, null, cipher.contentToString(), null, null)
                 Toast.makeText(

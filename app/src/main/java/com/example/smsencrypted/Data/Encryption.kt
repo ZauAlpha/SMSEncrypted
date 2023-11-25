@@ -6,11 +6,11 @@ import kotlin.math.sqrt
 
 class Encryption {
     companion object {
-        fun generateKeys(): LongArray {
+         fun generateKeys(): LongArray {
             var p = 0L
             var q = 0L
             while (p == 0L || q == 0L) {
-                val randomNum = 1009 + (Math.random() * 8964).toInt()
+                val randomNum = 101 + (Math.random() * 500).toInt()
                 if (isPrime(randomNum.toLong())) {
                     if (p == 0L) {
                         p = randomNum.toLong()
@@ -22,7 +22,7 @@ class Encryption {
 
             val n = p * q
             val totientFunction = n - (p + q - 1)
-            val e = 5483L
+            val e = 17L  // Valor de e más pequeño para simplificar
             val d = modinv(e, totientFunction)
             val dP = modinv(e, (p - 1))
             val dQ = modinv(e, q - 1)
@@ -79,12 +79,12 @@ class Encryption {
             result = result.remainder(bigN)
             return result.toLong()
         }
-        private fun decryptStandard(cipher: LongArray, d: Long, n: Long): String {
+         fun decryptStandard(cipher: LongArray, d: Long, n: Long): String {
             val messageLength = cipher.size
             val decMessage = CharArray(messageLength)
 
             for (j in 0 until messageLength) {
-                val m = encryptDecrypt(cipher[j], d, n).toInt()
+                val m = encryptDecrypt(cipher[j], d, n)
                 decMessage[j] = m.toChar()
             }
 
@@ -103,7 +103,7 @@ class Encryption {
             return cipher
         }
 
-        private fun decrypt(cipher: LongArray, dP: Long, dQ: Long, qInv: Long, p: Long, q: Long): String {
+        fun decrypt(cipher: LongArray, dP: Long, dQ: Long, qInv: Long, p: Long, q: Long): String {
             val messageLength = cipher.size
             val decMessage = CharArray(messageLength)
 

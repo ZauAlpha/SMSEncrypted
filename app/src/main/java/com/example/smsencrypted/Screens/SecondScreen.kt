@@ -40,12 +40,12 @@ fun SecondScreen(navController: NavController) {
 }
 
 @Composable
-private fun BodyContent(modifier: Modifier =Modifier , navController: NavController) {
+private fun BodyContent(modifier: Modifier = Modifier, navController: NavController) {
 
     LazyColumn(modifier = modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
         items(Data.users.size) { index ->
             val user = Data.users.elementAt(index)
-            UserCard(user = user){
+            UserCard(user = user) {
                 navController.navigate(AppScreens.MessagesScreen.route + "/${user.number}")
             }
 
@@ -62,16 +62,14 @@ private fun BodyContent(modifier: Modifier =Modifier , navController: NavControl
 @Composable
 fun UserCard(user: User, onClick: () -> Unit = {}) {
     val context = LocalContext.current
-
-        ElevatedCard(
-            modifier = Modifier
-                .clickable { onClick() }.padding(4.dp),
-            elevation = CardDefaults.cardElevation(4.dp)
-        ) {
-            Text(text = user.number, modifier = Modifier.padding(4.dp))
-        }
-
-
+    ElevatedCard(
+        modifier = Modifier
+            .clickable { onClick() }
+            .padding(4.dp),
+        elevation = CardDefaults.cardElevation(4.dp)
+    ) {
+        Text(text = user.number, modifier = Modifier.padding(4.dp))
+    }
 }
 
 @Composable

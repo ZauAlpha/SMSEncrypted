@@ -50,11 +50,12 @@ class MainActivity : ComponentActivity() {
         RequestReceiveMessage()
         // recive preferences from datastore of keys
         val keys = getKeys()
+        Data.keys = Encryption.generateKeys()
         //if keys are not stored generate new keys and store them
         lifecycleScope.launch(Dispatchers.IO) {
             keys.collect { value ->
                 if(!value.stored){
-                    Data.keys = Encryption.generateKeys()
+
                     setPreferences()
                 }else{
                     //if keys are stored set them to Data.keys
